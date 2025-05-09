@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -45,8 +46,9 @@ fun StaggeredVerticalGrid(
     maxColumnWidth: Dp,
     content: @Composable () -> Unit
 ) {
+    val scrollState = rememberScrollState(0)
     Layout(
-        modifier = modifier,
+        modifier = modifier.verticalScroll(scrollState),
         content = content
     ) { measurables, constraints ->
         val columnCount = max(1, constraints.maxWidth / maxColumnWidth.roundToPx())
@@ -80,7 +82,7 @@ fun StaggeredVerticalGrid(
 
 @Composable
 fun StaggeredGridDemo(modifier: Modifier) {
-    val items = (1..30).map { it to Random.nextInt(100, 300) }
+    val items = (1..50).map { it to Random.nextInt(100, 300) }
 
     StaggeredVerticalGrid(
         maxColumnWidth = 150.dp,
@@ -109,4 +111,3 @@ fun StaggeredGridDemo(modifier: Modifier) {
         }
     }
 }
-
